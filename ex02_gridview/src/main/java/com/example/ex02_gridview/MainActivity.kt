@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +43,15 @@ class MainActivity : AppCompatActivity() {
             R.drawable.mov09, R.drawable.mov10
         )
 
+        var posterTitle = arrayOf("써니", "완득이", "괴물", "라디오스타", "비열한거리",
+                                  "왕의남자", "아일랜드", "웰컴투동막골", "헬보이", "빽투더퓨처",
+                                  "써니", "완득이", "괴물", "라디오스타", "비열한거리",
+                                  "왕의남자", "아일랜드", "웰컴투동막골", "헬보이", "빽투더퓨처",
+                                  "써니", "완득이", "괴물", "라디오스타", "비열한거리",
+                                  "왕의남자", "아일랜드", "웰컴투동막골", "헬보이", "빽투더퓨처",
+                                  "써니", "완득이", "괴물", "라디오스타", "비열한거리",
+                                  "왕의남자", "아일랜드", "웰컴투동막골", "헬보이", "빽투더퓨처")
+
         override fun getCount(): Int
         {
             return arr1.size
@@ -59,7 +69,28 @@ class MainActivity : AppCompatActivity() {
 
             var view1 = ImageView(context)
 //            view1.setImageResource(R.drawable.mov01)
+            view1.layoutParams = ViewGroup.LayoutParams(200, 300)
+            view1.scaleType = ImageView.ScaleType.FIT_CENTER
+            view1.setPadding(5, 5, 5, 5)
+
             view1.setImageResource(arr1[position])
+
+            //어댑터뷰의 1개에 이벤트 처리 (반복: 구분은 P0 : postion)
+            view1.setOnClickListener {
+
+                var dlgView = View.inflate(this@MainActivity, R.layout.dialog1,null)
+                var dlg = AlertDialog.Builder(this@MainActivity)
+
+                var iv1 = dlgView.findViewById<ImageView>(R.id.ivPoster)
+                iv1.setImageResource(arr1[position])
+
+//                dlg.setTitle("큰포스터")
+                dlg.setTitle(posterTitle[position])
+                dlg.setIcon(R.drawable.movie_icon)
+                dlg.setView(dlgView)
+                dlg.setNegativeButton("닫기", null)
+                dlg.show()
+            }
 
             return view1//어댑터뷰에 1줄(1칸)에 들어갈 디자인을 꽂는다
         }
